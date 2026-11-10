@@ -22,45 +22,51 @@ export default function RecordsPanel({ memos, page, onPage, onOpen, onExportImag
           {exporting ? '製作中…' : '匯出 PDF'}
         </button>
       </div>
-      <div className="memo-grid">
-        {visible.map((memo) => (
+      {memos.length === 0 ? (
+        <p className="empty-records">還沒有釋出的紀錄。</p>
+      ) : (
+        <div className="memo-grid">
+          {visible.map((memo) => (
+            <button
+              key={memo.id}
+              type="button"
+              className="memo-card"
+              onClick={() => {
+                playMagicClick()
+                onOpen(memo)
+              }}
+            >
+              <span className="memo-nick">{memo.nickname}</span>
+              <span className="memo-author">{memo.author}</span>
+              <p className="memo-message">{memo.message}</p>
+              <p className="memo-date">Last Sign on {memo.date}</p>
+            </button>
+          ))}
+        </div>
+      )}
+      {memos.length > 0 && (
+        <div className="pager export-hide">
           <button
-            key={memo.id}
             type="button"
-            className="memo-card"
-            onClick={() => {
-              playMagicClick()
-              onOpen(memo)
-            }}
+            className="page-btn"
+            onClick={() => changePage(current - 1)}
+            disabled={current === 0}
           >
-            <span className="memo-nick">{memo.nickname}</span>
-            <span className="memo-author">{memo.author}</span>
-            <p className="memo-message">{memo.message}</p>
-            <p className="memo-date">Last Sign on {memo.date}</p>
+            {'< 上一頁'}
           </button>
-        ))}
-      </div>
-      <div className="pager export-hide">
-        <button
-          type="button"
-          className="page-btn"
-          onClick={() => changePage(current - 1)}
-          disabled={current === 0}
-        >
-          {'< 上一頁'}
-        </button>
-        <span className="page-count">
-          {current + 1} / {totalPages}
-        </span>
-        <button
-          type="button"
-          className="page-btn"
-          onClick={() => changePage(current + 1)}
-          disabled={current >= totalPages - 1}
-        >
-          {'下一頁 >'}
-        </button>
-      </div>
+          <span className="page-count">
+            {current + 1} / {totalPages}
+          </span>
+          <button
+            type="button"
+            className="page-btn"
+            onClick={() => changePage(current + 1)}
+            disabled={current >= totalPages - 1}
+          >
+            {'下一頁 >'}
+          </button>
+        </div>
+      )}
     </section>
   )
 }

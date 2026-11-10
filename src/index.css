@@ -135,6 +135,12 @@ textarea {
   box-shadow: 0 0 16px rgba(232, 200, 120, 0.45);
 }
 
+.empty-records {
+  margin: 48px 0 24px;
+  text-align: center;
+  color: #8d7352;
+}
+
 .tab-panel {
   animation: tab-in 200ms ease;
 }
