@@ -1,5 +1,3 @@
-export const NICKNAMES = ['旅人', '記錄官', '星詠者', '守夜人', '詠詩者']
-
 export const QUOTES = [
   '願星光記得我們走過的路',
   '有些名字，會留在風裡',

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NICKNAMES, QUOTES } from '../lib/storage'
+import { QUOTES } from '../lib/storage'
 import { playMagicClick } from '../lib/audio'
 
 const LIMIT = 100
@@ -19,10 +19,11 @@ export default function WritePanel({ onSubmit }) {
 
   function submit(event) {
     event.preventDefault()
+    const nextNickname = nickname.trim()
     const nextAuthor = author.trim()
     const nextQuote = quote.trim()
     const nextMessage = message.trim()
-    if (!nickname || !nextAuthor || !nextQuote || !nextMessage) {
+    if (!nextNickname || !nextAuthor || !nextQuote || !nextMessage) {
       setError('請填寫所有欄位')
       return
     }
@@ -32,7 +33,7 @@ export default function WritePanel({ onSubmit }) {
     }
     setError('')
     playMagicClick()
-    onSubmit({ nickname, author: nextAuthor, quote: nextQuote, message: nextMessage })
+    onSubmit({ nickname: nextNickname, author: nextAuthor, quote: nextQuote, message: nextMessage })
     setNickname('')
     setAuthor('')
     setQuoteChoice('')
@@ -44,14 +45,13 @@ export default function WritePanel({ onSubmit }) {
     <form className="form-grid" onSubmit={submit}>
       <label>
         <span className="field-label">玩家暱稱</span>
-        <select className="field" value={nickname} onChange={(event) => setNickname(event.target.value)}>
-          <option value="">請選擇暱稱</option>
-          {NICKNAMES.map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
+        <input
+          className="field"
+          value={nickname}
+          onChange={(event) => setNickname(event.target.value)}
+          placeholder="請輸入你的名字"
+          maxLength={24}
+        />
       </label>
       <label>
         <span className="field-label">撰寫玩家</span>
