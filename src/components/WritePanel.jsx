@@ -5,7 +5,6 @@ import { playMagicClick } from '../lib/audio'
 const LIMIT = 100
 
 export default function WritePanel({ onSubmit }) {
-  const [nickname, setNickname] = useState('')
   const [author, setAuthor] = useState('')
   const [quoteChoice, setQuoteChoice] = useState('')
   const [quote, setQuote] = useState('')
@@ -19,11 +18,10 @@ export default function WritePanel({ onSubmit }) {
 
   function submit(event) {
     event.preventDefault()
-    const nextNickname = nickname.trim()
     const nextAuthor = author.trim()
     const nextQuote = quote.trim()
     const nextMessage = message.trim()
-    if (!nextNickname || !nextAuthor || !nextQuote || !nextMessage) {
+    if (!nextAuthor || !nextQuote || !nextMessage) {
       setError('請填寫所有欄位')
       return
     }
@@ -33,8 +31,7 @@ export default function WritePanel({ onSubmit }) {
     }
     setError('')
     playMagicClick()
-    onSubmit({ nickname: nextNickname, author: nextAuthor, quote: nextQuote, message: nextMessage })
-    setNickname('')
+    onSubmit({ author: nextAuthor, quote: nextQuote, message: nextMessage })
     setAuthor('')
     setQuoteChoice('')
     setQuote('')
@@ -43,16 +40,6 @@ export default function WritePanel({ onSubmit }) {
 
   return (
     <form className="form-grid" onSubmit={submit}>
-      <label>
-        <span className="field-label">玩家暱稱</span>
-        <input
-          className="field"
-          value={nickname}
-          onChange={(event) => setNickname(event.target.value)}
-          placeholder="請輸入你的名字"
-          maxLength={24}
-        />
-      </label>
       <label>
         <span className="field-label">撰寫玩家</span>
         <input

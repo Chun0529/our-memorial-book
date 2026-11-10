@@ -36,7 +36,7 @@ export default function RecordsPanel({ memos, page, onPage, onOpen, onExportImag
                 onOpen(memo)
               }}
             >
-              <span className="memo-nick">{memo.nickname}</span>
+              {memo.nickname ? <span className="memo-nick">{memo.nickname}</span> : null}
               <span className="memo-author">{memo.author}</span>
               <p className="memo-message">{memo.message}</p>
               <p className="memo-date">Last Sign on {memo.date}</p>

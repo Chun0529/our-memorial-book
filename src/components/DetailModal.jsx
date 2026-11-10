@@ -47,7 +47,7 @@ export default function DetailModal({ memo, onClose }) {
               <p className="detail-message">{memo.message}</p>
               <div className="detail-sign">
                 <strong>{memo.author}</strong>
-                <em>{memo.nickname}</em>
+                {memo.nickname ? <em>{memo.nickname}</em> : null}
                 <p className="memo-date">Last Sign on {memo.date}</p>
               </div>
             </article>
